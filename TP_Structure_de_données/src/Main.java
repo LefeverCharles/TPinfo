@@ -122,7 +122,7 @@ public class Main {
             if(!discovered.contains(node)){
                 discovered.add(node);
                 path.add(node);
-                for(Integer voisin : map.get(node)){
+                for(Integer voisin : graphe.get(node)){
                     queue.addFirst(voisin);
                 }
             }
@@ -140,7 +140,7 @@ public class Main {
             if(!discovered.contains(node)){
                 discovered.add(node);
                 path.add(node);
-                for(Integer voisin : map.get(node)){
+                for(Integer voisin : graphe.get(node)){
                     stack.addFirst(voisin);
                 }
             }
