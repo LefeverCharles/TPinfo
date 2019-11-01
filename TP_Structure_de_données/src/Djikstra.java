@@ -11,6 +11,10 @@ public class Djikstra {
     public static void main(String[] args){
         gen_map();
         queue.addFirst('A');
+        while (queue.size()!=0){
+            djikstra(queue);
+        }
+        System.out.println(shorterPath.get('J'));
     }
 
     static void gen_map(){
@@ -22,7 +26,7 @@ public class Djikstra {
         map.put('F', new Integer[]{-1,80,-1,-1,-1,-1,-1,-1,250,-1});
         map.put('G', new Integer[]{-1,-1,186,-1,-1,-1,-1,-1,-1,-1});
         map.put('H', new Integer[]{-1,-1,103,183,-1,-1,-1,-1,-1,167});
-        map.put('I', new Integer[]{-1,-1,-1,-1,250,-1,-1,-1,84});
+        map.put('I', new Integer[]{-1,-1,-1,-1,-1,250,-1,-1,-1,84});
         map.put('J', new Integer[]{-1,-1,-1,-1,502,-1,-1,167,84,-1});
         shorterPath.put('A', new ArrayDeque<Character>(Collections.singletonList('A')));
         shorterPath.put('B',new ArrayDeque<Character>());
@@ -58,7 +62,7 @@ public class Djikstra {
         Integer[] dist = map.get(node);
         ArrayDeque<Character> voisins = new ArrayDeque<>();
         for(int i = 0; i< 10;i ++){
-            if (index[i]>0) {
+            if (dist[i]>0) {
                 voisins.addFirst(index[i]);
             }
         }
@@ -70,7 +74,26 @@ public class Djikstra {
         return map.get(nodeA)[index];
     }
 
-    static void
+    static void tri () {
+        Character[] triage = new Character[queue.size()];
+        for (int i = 0; i < triage.length; i++) {
+            triage[i] = queue.removeFirst();
+        }
+        for (int i = 0; i <triage.length-1;i++) {
+            int indiceMin = i;
+            for (int j = i; j < triage.length; j++) {
+                if (distance.get(triage[j]) < distance.get(triage[indiceMin])) {
+                    indiceMin = j;
+                }
+            }
+            Character swap = triage[i];
+            triage[i] = triage[indiceMin];
+            triage[indiceMin] = swap;
+        }
+        for (int i=0; i<triage.length;i++){
+            queue.addLast(triage[i]);
+        }
+    }
 
     static void djikstra (ArrayDeque<Character> queue) {
         Character node = queue.removeFirst();
@@ -88,7 +111,7 @@ public class Djikstra {
                 queue.addFirst(voisin);
             }
         }
-
+        tri();
     }
 }
 
