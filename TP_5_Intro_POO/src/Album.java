@@ -24,6 +24,7 @@ public class Album {
         int i = 1;
         for (Song song: this.songs){
             res= res +"\t" + i + " - " + song.getTitle()+ song.convertDuration()+ "\n";
+            i++;
         }
         return res;
     }
